@@ -95,7 +95,12 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               onTap: () {
-                nextScreen(context, const ProfilePage());
+                nextScreenReplace(
+                    context,
+                    ProfilePage(
+                      userName: userName,
+                      email: email,
+                    ));
               },
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
@@ -107,8 +112,7 @@ class _HomePageState extends State<HomePage> {
             ),
             ListTile(
               onTap: () async {
-                await showDialog(
-                    // useRootNavigator: false,
+                showDialog(
                     barrierDismissible: false,
                     context: context,
                     builder: (context) {
@@ -118,9 +122,12 @@ class _HomePageState extends State<HomePage> {
                         actions: [
                           IconButton(
                             onPressed: () {
-                              Navigator.of(context).pop();
+                              Navigator.pop(context);
                             },
-                            icon: const Icon(Icons.cancel, color: Colors.red),
+                            icon: const Icon(
+                              Icons.cancel,
+                              color: Colors.red,
+                            ),
                           ),
                           IconButton(
                             onPressed: () async {
@@ -130,15 +137,14 @@ class _HomePageState extends State<HomePage> {
                                       builder: (context) => const LoginPage()),
                                   (route) => false);
                             },
-                            icon: const Icon(Icons.exit_to_app,
-                                color: Colors.green),
+                            icon: const Icon(
+                              Icons.done,
+                              color: Colors.green,
+                            ),
                           ),
                         ],
                       );
                     });
-                authService.signOut().whenComplete(() {
-                  nextScreenReplace(context, const LoginPage());
-                });
               },
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
