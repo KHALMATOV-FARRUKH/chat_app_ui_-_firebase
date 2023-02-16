@@ -9,7 +9,7 @@ import 'package:flutter/foundation.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  if(kIsWeb){
+  if (kIsWeb) {
     // run the initialization for web
     await Firebase.initializeApp(
         options: FirebaseOptions(
@@ -17,7 +17,7 @@ void main() async {
             appId: Constants.appId,
             messagingSenderId: Constants.messagingSenderId,
             projectId: Constants.projectId));
-  }else{
+  } else {
     // run the initialization for android, ios
     await Firebase.initializeApp();
   }
@@ -43,8 +43,10 @@ class _MyAppState extends State<MyApp> {
 
   getUserLoggedInStatus() async {
     await HelperFunctions.getUserLoggedInStatus().then((value) {
-      if(value != null){
-        _isSignedIn = value;
+      if (value != null) {
+        setState(() {
+          _isSignedIn = value;
+        });
       }
     });
   }
